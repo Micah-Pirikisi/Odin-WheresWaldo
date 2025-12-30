@@ -1,6 +1,6 @@
-const prisma = require("../prisma");
+import prisma from "../lib/prisma.js";
 
-exports.listScores = async (req, res, next) => {
+export const listScores = async (req, res, next) => {
   try {
     const { image_id } = req.query;
     const where = image_id

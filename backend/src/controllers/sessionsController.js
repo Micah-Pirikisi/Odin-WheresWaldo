@@ -1,11 +1,11 @@
 import prisma from "../lib/prisma.js";
-const { v4: uuidv4 } = require("uuid");
+import { v4 as uuidv4 } from "uuid";
 
 function toNumber(v) {
   return typeof v === "string" ? parseFloat(v) : v;
 }
 
-exports.createSession = async (req, res, next) => {
+export const createSession = async (req, res, next) => {
   try {
     const { image_id } = req.body;
     if (!image_id) return res.status(400).json({ error: "image_id required" });
@@ -26,7 +26,7 @@ exports.createSession = async (req, res, next) => {
   }
 };
 
-exports.validateSelection = async (req, res, next) => {
+export const validateSelection = async (req, res, next) => {
   try {
     const sessionId = parseInt(req.params.id, 10);
     const { x_pct, y_pct, character_id } = req.body;
@@ -82,7 +82,7 @@ exports.validateSelection = async (req, res, next) => {
   }
 };
 
-exports.getSessionStatus = async (req, res, next) => {
+export const getSessionStatus = async (req, res, next) => {
   try {
     const sessionId = parseInt(req.params.id, 10);
     const session = await prisma.session.findUnique({
@@ -108,7 +108,7 @@ exports.getSessionStatus = async (req, res, next) => {
   }
 };
 
-exports.finishSession = async (req, res, next) => {
+export const finishSession = async (req, res, next) => {
   try {
     const sessionId = parseInt(req.params.id, 10);
     const { anonymous_id, player_name } = req.body;

@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const ctrl = require("../controllers/imagesController");
+import { listImages, getCharactersForImage} from "../controllers/imagesController.js";
 
-router.get("/", ctrl.listImages);
-router.get("/:id/characters", ctrl.getCharactersForImage);
+router.get("/", listImages);
+router.get("/:id/characters", getCharactersForImage);
 
-module.exports = router;
+export default router;

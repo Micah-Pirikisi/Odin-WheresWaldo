@@ -1,10 +1,15 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const ctrl = require("../controllers/sessionsController");
+import {
+  createSession,
+  validateSelection,
+  finishSession,
+  getSessionStatus,
+} from "../controllers/sessionsController.js";
 
-router.post("/", ctrl.createSession);
-router.post("/:id/validate", ctrl.validateSelection);
-router.post("/:id/finish", ctrl.finishSession);
-router.get("/:id/status", ctrl.getSessionStatus);
+router.post("/", createSession);
+router.post("/:id/validate", validateSelection);
+router.post("/:id/finish", finishSession);
+router.get("/:id/status", getSessionStatus);
 
-module.exports = router;
+export default router;

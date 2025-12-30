@@ -1,6 +1,6 @@
 import prisma from "../lib/prisma.js";
 
-exports.listImages = async (req, res, next) => {
+export const listImages = async (req, res, next) => {
   try {
     const images = await prisma.image.findMany({
       select: { id: true, title: true, url: true, width: true, height: true },
@@ -11,7 +11,7 @@ exports.listImages = async (req, res, next) => {
   }
 };
 
-exports.getCharactersForImage = async (req, res, next) => {
+export const getCharactersForImage = async (req, res, next) => {
   try {
     const imageId = parseInt(req.params.id, 10);
     const characters = await prisma.character.findMany({

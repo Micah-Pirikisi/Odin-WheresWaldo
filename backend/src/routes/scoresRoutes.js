@@ -1,7 +1,7 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const ctrl = require("../controllers/scoresController");
+import { listScores } from "../controllers/scoresController.js";
 
-router.get("/", ctrl.listScores);
+router.get("/", listScores);
 
-module.exports = router;
+export default router;

@@ -32,7 +32,7 @@ app.set("layout", "layouts/layout");
 app.use("/public", express.static(join(__dirname, "public")));
 
 // API routes
-app.use("api/images", imagesRoutes);
+app.use("/api/images", imagesRoutes);
 app.use("/api/scores", scoresRoutes);
 app.use("/api/sessions", sessionsRoutes);
 
@@ -45,3 +45,5 @@ app.use((err, req, res, next) => {
       .json({ error: err.message || "Internal server error" });
   }
 });
+
+export default app; 
