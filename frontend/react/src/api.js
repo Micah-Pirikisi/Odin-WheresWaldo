@@ -1,4 +1,4 @@
-export const API_BASE = window.API_BASE || "http://localhost:5432"; // e.g., 'http://localhost:4000'
+export const API_BASE = window.API_BASE || "http://localhost:3000"; // e.g., 'http://localhost:4000'
 
 async function handleRes(res) {
   const text = await res.text();
