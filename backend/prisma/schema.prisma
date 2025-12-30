@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Image {
+  id        Int        @id @default(autoincrement())
+  title     String
+  url       String
+  width     Int
+  height    Int
+  characters Character[]
+  sessions  Session[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Character {
+  id         Int     @id @default(autoincrement())
+  image      Image   @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  imageId    Int
+  name       String  @@unique([imageId, name])
+  x_pct      Float   // 0..1
+  y_pct      Float   // 0..1
+  radius_pct Float   // acceptable radius in pct space
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Session {
+  id              Int      @id @default(autoincrement())
+  image           Image    @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  imageId         Int
+  startedAt       DateTime @default(now())
+  finishedAt      DateTime?
+  foundCharacters Json     @default("[]")
+  anonymousId     String
+  scores          Score[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Score {
+  id          Int      @id @default(autoincrement())
+  session     Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sessionId   Int
+  playerName  String
+  timeSeconds Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
