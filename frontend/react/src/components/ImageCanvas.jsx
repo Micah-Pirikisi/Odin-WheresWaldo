@@ -89,26 +89,26 @@ export default function ImageCanvas({
 
   function getDropdownPosition() {
     if (!target || !imgRef.current) return { left: 0, top: 0 };
-    
+
     const img = imgRef.current;
     const rect = img.getBoundingClientRect();
     const DROPDOWN_WIDTH = 160;
     const DROPDOWN_HEIGHT = characters.length * 40 + 20; // estimate
-    
+
     // Calculate left position
     let left = target.dispX + 70;
     if (left + DROPDOWN_WIDTH > rect.width) {
       // If would overflow right, position to the left of the click
       left = Math.max(8, target.dispX - DROPDOWN_WIDTH - 10);
     }
-    
+
     // Calculate top position
     let top = target.dispY - 10;
     if (top + DROPDOWN_HEIGHT > rect.height) {
       // If would overflow bottom, position above the click
       top = Math.max(8, target.dispY - DROPDOWN_HEIGHT - 10);
     }
-    
+
     return { left, top };
   }
 
