@@ -9,17 +9,10 @@ async function main() {
 
   const image = await prisma.image.create({
     data: {
-      title: "Waldo Test Image",
-      url: "/images/waldo.jpg",
-      width: 2000,
-      height: 1500,
-      characters: {
-        create: [
-          { name: "Waldo", x_pct: 0.45, y_pct: 0.62, radius_pct: 0.02 },
-          { name: "Wizard", x_pct: 0.12, y_pct: 0.3, radius_pct: 0.03 },
-          { name: "Wilma", x_pct: 0.78, y_pct: 0.55, radius_pct: 0.025 },
-        ],
-      },
+      title: "Just Waldo",
+      url: "/assets/waldo1.jpg", 
+      width: 2048,
+      height: 1346,
     },
   });
 

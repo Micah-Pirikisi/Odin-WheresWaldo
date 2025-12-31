@@ -1,14 +1,25 @@
+// prisma.config.js
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 import { PrismaPg } from "@prisma/adapter-pg";
 
-const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL,
-});
+const connectionString = process.env.DATABASE_URL;
+
+if (!connectionString) {
+  throw new Error("DATABASE_URL is not set");
+}
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
-  adapter, // required in Prisma 7
+
+  datasource: {
+    url: connectionString,
+  },
+
+  adapter: new PrismaPg({
+    connectionString,
+  }),
+
   migrations: {
     path: "prisma/migrations",
   },
