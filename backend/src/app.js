@@ -38,12 +38,32 @@ app.use("/api/sessions", sessionsRoutes);
 
 // Error handler
 app.use((err, req, res, next) => {
-  console.error(err);
+  console.error("Error:", err);
+  
+  // Log for debugging
+  const errorDetails = {
+    message: err.message || "Unknown error",
+    status: err.status || err.statusCode || 500,
+    path: req.path,
+    method: req.method,
+  };
+  
+  console.error("Error Details:", errorDetails);
+  
   if (req.path.startsWith("/api/")) {
-    res
-      .status(err.status || 500)
-      .json({ error: err.message || "Internal server error" });
+    const statusCode = err.status || err.statusCode || 500;
+    res.status(statusCode).json({ 
+      error: err.message || "Internal server error",
+      ...(process.env.NODE_ENV === "development" && { stack: err.stack })
+    });
+  } else {
+    res.status(500).json({ error: "Internal server error" });
   }
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ error: "Not found" });
 });
 
 export default app; 
