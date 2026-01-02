@@ -137,7 +137,7 @@ export default function ImageCanvas({
       >
         <img
           ref={imgRef}
-          src={imageUrl ? `${API_BASE}${imageUrl}` : "/assets/waldo.jpg"}
+          src={imageUrl ? `${API_BASE}${imageUrl}` : "assets/waldo1.jpg"}
           alt="game"
           draggable="false"
         />
